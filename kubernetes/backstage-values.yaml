@@ -1,0 +1,69 @@
+backstage:
+  appConfig:
+    app:
+      title: "Portal de Plataforma — ARTI-4219"
+      baseUrl: http://localhost
+
+    backend:
+      baseUrl: http://localhost
+      listen:
+        port: 7007
+      cors:
+        origin: http://localhost
+        methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+        credentials: true
+      database:
+        # Usamos SQLite en memoria para simplificar el ambiente local.
+        client: better-sqlite3
+        connection: ':memory:'
+
+    auth:
+      environment: development
+      providers:
+        guest:
+          dangerouslyAllowOutsideDevelopment: true
+
+    # -------------------------------------------------------
+    # Integración con GitHub.
+    # El token se inyecta desde la variable de entorno GITHUB_TOKEN
+    # que pasamos con --set al momento de 'helm install'.
+    # -------------------------------------------------------
+    integrations:
+      github:
+        - host: github.com
+          token: ${GITHUB_TOKEN}
+
+    catalog:
+      rules:
+        - allow:
+            - Component
+            - System
+            - API
+            - Resource
+            - Location
+            - Template
+            - User
+            - Group
+      # Ubicaciones iniciales del catálogo.
+      # Aquí puedes añadir URLs a catalog-info.yaml o template.yaml
+      # que quieras pre-cargar en Backstage al iniciar.
+      locations: []
+        # Ejemplo:
+        # - type: url
+        #   target: https://github.com/tu-usuario/tu-repo/blob/main/template.yaml
+
+    scaffolder:
+      defaultCommitMessage: "feat: scaffold new service via Backstage Golden Path"
+
+service:
+  type: NodePort
+  ports:
+    backend: 7007
+  nodePorts:
+    backend: "30000"
+
+postgresql:
+  enabled: false
+
+ingress:
+  enabled: false
