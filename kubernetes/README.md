@@ -70,19 +70,19 @@ kind delete cluster --name backstage-platform
 
 # Paso 2: Instalación de Backstage con Helm
 
-Con el clúster en funcionamiento, vamos a desplegar Backstage. Usaremos **Helm**, el gestor de paquetes de Kubernetes, para instalar el chart de Bitnami, que tiene una configuración de Backstage pre-empaquetada y lista para usar.
+Con el clúster en funcionamiento, vamos a desplegar Backstage. Usaremos **Helm**, el gestor de paquetes de Kubernetes, para instalar el chart oficial de Backstage (`backstage/backstage`), que tiene una configuración pre-empaquetada y lista para usar.
 
 ## ¿Qué es Helm?
 
 Helm funciona como un gestor de paquetes (como `apt` en Ubuntu o `brew` en macOS) para Kubernetes. Permite definir, instalar y actualizar aplicaciones complejas a través de "charts". Un chart es una colección de archivos que describen un conjunto de recursos de Kubernetes.
 
-### 1. Añadir el Repositorio de Helm de Bitnami
+### 1. Añadir el Repositorio de Helm de Backstage
 
-Primero, debemos decirle a Helm dónde encontrar el chart de Backstage. Bitnami mantiene un repositorio público con cientos de charts populares.
+Primero, debemos decirle a Helm dónde encontrar el chart oficial de Backstage:
 
 ```bash
-# Añade el repositorio de Bitnami a tu configuración local de Helm
-helm repo add bitnami https://charts.bitnami.com/bitnami
+# Añade el repositorio oficial de Backstage a tu configuración local de Helm
+helm repo add backstage https://backstage.github.io/charts
 
 # Actualiza la información de los repositorios para obtener las últimas versiones
 helm repo update
@@ -91,7 +91,7 @@ helm repo update
 Puedes verificar que el chart de Backstage está disponible con:
 
 ```bash
-helm search repo bitnami/backstage
+helm search repo backstage/backstage
 ```
 
 ---
@@ -140,12 +140,12 @@ echo $GITHUB_TOKEN
 Con el repositorio añadido y el token configurado, ejecuta el siguiente comando para instalar Backstage. Usamos el flag `--set` para pasar el token de forma segura desde la variable de entorno:
 
 ```bash
-helm install backstage bitnami/backstage \
+helm install backstage backstage/backstage \
   --namespace backstage \
   --create-namespace \
   --values kubernetes/backstage-values.yaml \
-  --set backstage.extraEnvVars[0].name=GITHUB_TOKEN \
-  --set backstage.extraEnvVars[0].value="$GITHUB_TOKEN"
+  --set "backstage.extraEnvVars[0].name=GITHUB_TOKEN" \
+  --set "backstage.extraEnvVars[0].value=$GITHUB_TOKEN"
 ```
 
 Este comando:

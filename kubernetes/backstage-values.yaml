@@ -52,8 +52,25 @@ backstage:
         # - type: url
         #   target: https://github.com/tu-usuario/tu-repo/blob/main/template.yaml
 
+    kubernetes:
+      serviceLocatorMethod:
+        type: 'multiTenant'
+      clusterLocatorMethods:
+        - type: 'config'
+          clusters: []
+
+    techdocs:
+      builder: 'local'
+      generator:
+        runIn: 'local'
+      publisher:
+        type: 'local'
+
     scaffolder:
       defaultCommitMessage: "feat: scaffold new service via Backstage Golden Path"
+
+  image:
+    tag: "1.30.2"
 
 service:
   type: NodePort
