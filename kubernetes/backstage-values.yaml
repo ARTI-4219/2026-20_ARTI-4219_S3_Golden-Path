@@ -47,10 +47,9 @@ backstage:
       # Ubicaciones iniciales del catálogo.
       # Aquí puedes añadir URLs a catalog-info.yaml o template.yaml
       # que quieras pre-cargar en Backstage al iniciar.
-      locations: []
-        # Ejemplo:
-        # - type: url
-        #   target: https://github.com/tu-usuario/tu-repo/blob/main/template.yaml
+      locations:
+        - type: url
+          target: https://github.com/jdcepedas/2026-20_ARTI-4219_S3_Golden-Path/blob/HT3/golden-path/template.yaml
 
     kubernetes:
       serviceLocatorMethod:
