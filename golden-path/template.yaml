@@ -85,7 +85,7 @@ steps:
   # -------------------------------------------------------------------
   - id: publish-github
     name: "Publicar en GitHub"
-    action: publish:github
+    action: publish:github:v1
     input:
       # TODO 7: Define el nombre del repositorio a crear en GitHub.
       # Usa el parámetro 'serviceName' para que el nombre del repo
