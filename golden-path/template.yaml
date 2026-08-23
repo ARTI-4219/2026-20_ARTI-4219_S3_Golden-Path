@@ -8,15 +8,15 @@
 # =====================================================================
 
 # TODO 1: Completa los campos de apiVersion y kind.
-apiVersion: scaffolder.backstage.io/v1beta3
+apiVersion: "scaffolder.backstage.io/v1beta3"
 kind: Template
 
 metadata:
   name: taller-microservicio-nodejs
   title: "Taller Microservicio NodeJS — Seguro por Defecto"
   description:
-    Reto de trabajar con un Golden Path para crear un nuevo microservicio NodeJS con estructura base,
-    publicarlo en tu repositorio de GitHub y registrarlo en el Software Catalog.
+    "Reto de trabajar con un Golden Path para crear un nuevo microservicio NodeJS con estructura base,
+    publicarlo en tu repositorio de GitHub y registrarlo en el Software Catalog."
   tags:
     - reto3
     - nodejs
