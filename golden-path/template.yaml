@@ -114,18 +114,18 @@ steps:
       repoContentsUrl: ${{ steps['publish-github'].output.repoContentsUrl }}
       catalogInfoPath: "/catalog-info.yaml"
 
-# =====================================================================
-# SECCIÓN OUTPUT: Muestra información útil al usuario al finalizar.
-# =====================================================================
-output:
-  # TODO 11: Agrega aquí al menos 2 links para mostrar al usuario:
-  #   1. Un link al repositorio recién creado en GitHub
-  #   2. Un link al componente en el Software Catalog de Backstage
-  links:
-    - title: "Ver Repositorio en GitHub" # TODO: Título del primer link (ej: "Ver repositorio en GitHub")
-      url: ${{ steps['publish-github'].output.remoteUrl }} # TODO: URL del output del paso publish-github
-      icon: github
+    # =====================================================================
+    # SECCIÓN OUTPUT: Muestra información útil al usuario al finalizar.
+    # =====================================================================
+    output:
+      # TODO 11: Agrega aquí al menos 2 links para mostrar al usuario:
+      #   1. Un link al repositorio recién creado en GitHub
+      #   2. Un link al componente en el Software Catalog de Backstage
+      links:
+        - title: "Ver Repositorio en GitHub" # TODO: Título del primer link (ej: "Ver repositorio en GitHub")
+          url: ${{ steps['publish-github'].output.remoteUrl }} # TODO: URL del output del paso publish-github
+          icon: github
 
-    - title: "Ver Componente en el Catálogo de Backstage" # TODO: Título del segundo link (ej: "Ver en el Software Catalog")
-      entityRef: ${{ steps['register-catalog'].output.entityRef }} # TODO: referencia la entity registrada en el catálogo
-      icon: catalog
+        - title: "Ver Componente en el Catálogo de Backstage" # TODO: Título del segundo link (ej: "Ver en el Software Catalog")
+          entityRef: ${{ steps['register-catalog'].output.entityRef }} # TODO: referencia la entity registrada en el catálogo
+          icon: catalog
