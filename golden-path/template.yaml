@@ -85,6 +85,74 @@ steps:
   # -------------------------------------------------------------------
   - id: publish-github
     name: "Publicar en GitHub"
+    action: publish:github
+    input:
+      # TODO 7: Define el nombre del repositorio a crear en GitHub.
+      # Usa el parámetro 'serviceName' para que el nombre del repo
+      # coincida con el nombre del microservicio.
+      repoUrl: ://github.com{{ parameters.serviceName }}&owner=pa-renteria10
+      description: "Repositorio automatizado para el microservicio ${{ parameters.serviceName }}"
+      token: ${{ secrets.USER_OAUTH_TOKEN }}
+      # TODO 8: Define la visibilidad del repositorio.
+      repoVisibility: private
+      defaultBranch: main
+
+      # TODO 9 (Avanzado/Opcional): Protección de la rama 'main'
+      requireCodeOwnerReviews: true
+      requiredStatusCheckContexts: []
+      # Nota: Para restricciones avanzadas de PR, se suele usar la acción integrada 'github:branch-protection' justo después de este paso.
+
+  # -------------------------------------------------------------------
+  # PASO 3: Registrar el componente en el Software Catalog de Backstage.
+  # -------------------------------------------------------------------
+  - id: register-catalog
+    name: "Registrar en el Software Catalog"
+    action: catalog:register
+    input:
+      # TODO 10: Define la URL del catalog-info.yaml que acaba de publicarse.
+      # Para esto, necesitas usar el OUTPUT del paso anterior ('publish-github').
+      repoContentsUrl: ${{ steps['publish-github'].output.repoContentsUrl }}
+      catalogInfoPath: "/catalog-info.yaml"
+
+# =====================================================================
+# SECCIÓN OUTPUT: Muestra información útil al usuario al finalizar.
+# =====================================================================
+output:
+  # TODO 11: Agrega aquí al menos 2 links para mostrar al usuario:
+  #   1. Un link al repositorio recién creado en GitHub
+  #   2. Un link al componente en el Software Catalog de Backstage
+  links:
+    - title: "Ver Repositorio en GitHub" # TODO: Título del primer link (ej: "Ver repositorio en GitHub")
+      url: ${{ steps['publish-github'].output.remoteUrl }} # TODO: URL del output del paso publish-github
+      icon: github
+
+    - title: "Ver Componente en el Catálogo de Backstage" # TODO: Título del segundo link (ej: "Ver en el Software Catalog")
+      entityRef: ${{ steps['register-catalog'].output.entityRef }} # TODO: referencia la entity registrada en el catálogo
+      icon: catalog
+# =====================================================================
+# SECCIÓN STEPS: Define las acciones automatizadas del scaffolder.
+# =====================================================================
+steps:
+  # -------------------------------------------------------------------
+  # PASO 1: Descargar y parametrizar el skeleton del microservicio.
+  # -------------------------------------------------------------------
+  - id: fetch-base
+    name: "Descarga el skeleton de este repositorio e inyecta los parámetros"
+    action: fetch:template
+    input:
+      # TODO 5: Especifica la URL del repositorio que contiene el skeleton.
+      url: ./skeleton # TODO: pon aquí la URL de tu skeleton en GitHub
+      values:
+        # TODO 6: Mapea aquí los parámetros del formulario a los valores
+        name: ${{ parameters.name }}
+        description: ${{ parameters.description }}
+        owner: ${{ parameters.owner }}
+
+  # -------------------------------------------------------------------
+  # PASO 2: Publicar el código en un repositorio de GitHub.
+  # -------------------------------------------------------------------
+  - id: publish-github
+    name: "Publicar en GitHub"
     action: publish:github:v1
     input:
       # TODO 7: Define el nombre del repositorio a crear en GitHub.
