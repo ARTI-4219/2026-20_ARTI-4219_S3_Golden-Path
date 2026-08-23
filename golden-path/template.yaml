@@ -35,8 +35,8 @@ parameters:
         title: "microservicio-reto3"
         type: string
         description:
-          Nombre único del microservicio. Debe estar en minúsculas,
-          sin espacios ni caracteres especiales. Ejemplo: pagos-service.
+          "Nombre único del microservicio. Debe estar en minúsculas,
+          sin espacios ni caracteres especiales. Ejemplo: pagos-service."
         # TODO 2: Agrega las propiedades de JSON Schema para:
         #   a) Limitar el nombre a máximo 50 caracteres
         #   b) Validar que solo use letras minúsculas, números y guiones (-)
@@ -49,8 +49,8 @@ parameters:
         title: "Propietario (Owner)"
         type: string
         description:
-          El equipo o usuario responsable de este microservicio.
-          Debe ser una entidad válida del Software Catalog.
+          "El equipo o usuario responsable de este microservicio.
+          Debe ser una entidad válida del Software Catalog."
         # TODO 3: Reemplaza el tipo de campo por el widget especial de Backstage
         # que lee los owners directamente del Software Catalog.
         # Pista: investiga 'ui:field: OwnerPicker' y sus opciones de catálogo.
