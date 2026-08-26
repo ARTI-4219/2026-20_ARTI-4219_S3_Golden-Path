@@ -4,7 +4,7 @@ metadata:
   name: ${{ values.serviceName }}
   description: "Microservicio ${{ values.serviceName }} — generado via Backstage Golden Path"
   annotations:
-    github.com/project-slug: ${{ values.owner }}/${{ values.serviceName }}
+    github.com/project-slug: ${{ values.githubOrg }}/${{ values.serviceName }}
     backstage.io/techdocs-ref: dir:.
   tags:
     - nodejs
